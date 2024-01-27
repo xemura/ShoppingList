@@ -3,8 +3,11 @@ package com.xenia.shopinglist.presentation
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.xenia.shopinglist.R
 import com.xenia.shopinglist.domain.ShopItem
 
@@ -21,8 +24,31 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.shopList.observe(this) { it ->
-            adapter.shopList = it
+            adapter.submitList(it)
         }
+
+        setUpSwipeListener()
+    }
+
+    private fun setUpSwipeListener() {
+        val callback = object : ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val item = adapter.currentList[viewHolder.adapterPosition]
+                viewModel.deleteShopItem(item)
+            }
+        }
+        ItemTouchHelper(callback).attachToRecyclerView(recyclerView)
     }
 
     private fun setUpRecyclerView() {
@@ -39,8 +65,20 @@ class MainActivity : AppCompatActivity() {
             ShopListAdapter.MAX_POOL_SIZE
         )
 
-        adapter.onShopItemLongClickListener =  {
-                viewModel.changeEnableState(it)
+        setUpLongClickListener()
+
+        setUpClickListener()
+    }
+
+    private fun setUpClickListener() {
+        adapter.onShopItemShortClickListener = {
+            Log.d("Test Edit", "${it.count} ${it.name}")
+        }
+    }
+
+    private fun setUpLongClickListener() {
+        adapter.onShopItemLongClickListener = {
+            viewModel.changeEnableState(it)
         }
     }
 }
