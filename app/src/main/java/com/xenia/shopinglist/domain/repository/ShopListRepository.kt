@@ -1,6 +1,7 @@
-package com.xenia.shopinglist.domain
+package com.xenia.shopinglist.domain.repository
 
 import androidx.lifecycle.LiveData
+import com.xenia.shopinglist.domain.model.ShopItem
 
 interface ShopListRepository {
     fun addShopItem(shopItem: ShopItem)

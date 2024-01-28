@@ -1,4 +1,7 @@
-package com.xenia.shopinglist.domain
+package com.xenia.shopinglist.domain.usecases
+
+import com.xenia.shopinglist.domain.model.ShopItem
+import com.xenia.shopinglist.domain.repository.ShopListRepository
 
 class EditShopItemUseCase(private val shopListRepository: ShopListRepository) {
     fun editShopItem(shopItem: ShopItem) {

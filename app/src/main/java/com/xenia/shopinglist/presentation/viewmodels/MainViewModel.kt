@@ -1,11 +1,11 @@
-package com.xenia.shopinglist.presentation
+package com.xenia.shopinglist.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import com.xenia.shopinglist.data.ShopListRepositoryImpl
-import com.xenia.shopinglist.domain.DeleteShopItemUseCase
-import com.xenia.shopinglist.domain.EditShopItemUseCase
-import com.xenia.shopinglist.domain.GetShopListUseCase
-import com.xenia.shopinglist.domain.ShopItem
+import com.xenia.shopinglist.domain.usecases.DeleteShopItemUseCase
+import com.xenia.shopinglist.domain.usecases.EditShopItemUseCase
+import com.xenia.shopinglist.domain.usecases.GetShopListUseCase
+import com.xenia.shopinglist.domain.model.ShopItem
 
 class MainViewModel: ViewModel() {
 

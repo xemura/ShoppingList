@@ -1,11 +1,11 @@
-package com.xenia.shopinglist.presentation
+package com.xenia.shopinglist.presentation.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.xenia.shopinglist.R
-import com.xenia.shopinglist.domain.ShopItem
+import com.xenia.shopinglist.domain.model.ShopItem
 
 class ShopListAdapter: ListAdapter<ShopItem, ShopItemViewHolder>(ShopItemDiffCallback()) {
 

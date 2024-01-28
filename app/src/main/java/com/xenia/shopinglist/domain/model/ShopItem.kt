@@ -1,4 +1,4 @@
-package com.xenia.shopinglist.domain
+package com.xenia.shopinglist.domain.model
 
 data class ShopItem(
     val name: String,

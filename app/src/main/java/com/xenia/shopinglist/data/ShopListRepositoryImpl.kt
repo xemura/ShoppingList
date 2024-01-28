@@ -2,8 +2,8 @@ package com.xenia.shopinglist.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.xenia.shopinglist.domain.ShopItem
-import com.xenia.shopinglist.domain.ShopListRepository
+import com.xenia.shopinglist.domain.model.ShopItem
+import com.xenia.shopinglist.domain.repository.ShopListRepository
 import kotlin.random.Random
 
 object ShopListRepositoryImpl: ShopListRepository {

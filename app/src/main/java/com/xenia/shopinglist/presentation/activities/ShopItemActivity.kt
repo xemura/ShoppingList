@@ -1,4 +1,4 @@
-package com.xenia.shopinglist.presentation
+package com.xenia.shopinglist.presentation.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

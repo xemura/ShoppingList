@@ -1,7 +1,7 @@
-package com.xenia.shopinglist.presentation
+package com.xenia.shopinglist.presentation.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.xenia.shopinglist.domain.ShopItem
+import com.xenia.shopinglist.domain.model.ShopItem
 
 class ShopListDiffCallback(
     private val oldList: List<ShopItem>,

@@ -1,15 +1,14 @@
-package com.xenia.shopinglist.presentation
+package com.xenia.shopinglist.presentation.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import com.xenia.shopinglist.R
-import com.xenia.shopinglist.domain.ShopItem
+import com.xenia.shopinglist.presentation.adapter.ShopListAdapter
+import com.xenia.shopinglist.presentation.viewmodels.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 

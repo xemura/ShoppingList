@@ -1,4 +1,4 @@
-package com.xenia.shopinglist.presentation
+package com.xenia.shopinglist.presentation.adapter
 
 import android.view.View
 import android.widget.TextView
