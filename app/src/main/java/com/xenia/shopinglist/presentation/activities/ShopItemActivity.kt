@@ -8,7 +8,7 @@ import com.xenia.shopinglist.R
 import com.xenia.shopinglist.domain.model.ShopItem
 import com.xenia.shopinglist.presentation.fragments.ShopItemFragment
 
-class ShopItemActivity : AppCompatActivity() {
+class ShopItemActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishListener {
 
     private var screenMode = MODE_UNKNOWN
     private var shopItemId = ShopItem.UNDEFINED_ID
@@ -74,5 +74,9 @@ class ShopItemActivity : AppCompatActivity() {
 
             return intent
         }
+    }
+
+    override fun onEditingFinish() {
+        finish()
     }
 }

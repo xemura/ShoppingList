@@ -2,6 +2,7 @@ package com.xenia.shopinglist.presentation.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
@@ -13,7 +14,7 @@ import com.xenia.shopinglist.presentation.adapter.ShopListAdapter
 import com.xenia.shopinglist.presentation.fragments.ShopItemFragment
 import com.xenia.shopinglist.presentation.viewmodels.MainViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishListener {
 
     private lateinit var viewModel: MainViewModel
     private lateinit var recyclerView: RecyclerView
@@ -113,6 +114,11 @@ class MainActivity : AppCompatActivity() {
         adapter.onShopItemLongClickListener = {
             viewModel.changeEnableState(it)
         }
+    }
+
+    override fun onEditingFinish() {
+        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+        supportFragmentManager.popBackStack()
     }
 }
 
