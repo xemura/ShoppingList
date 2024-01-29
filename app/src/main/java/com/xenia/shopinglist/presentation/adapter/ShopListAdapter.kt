@@ -13,7 +13,6 @@ class ShopListAdapter: ListAdapter<ShopItem, ShopItemViewHolder>(ShopItemDiffCal
     var onShopItemShortClickListener: ((ShopItem) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopItemViewHolder {
-        Log.d("RecyclerViewAdapter", "onCreateViewHolder")
 
         val layout = if (viewType == 0) {
             R.layout.item_shop_disabled
@@ -29,12 +28,11 @@ class ShopListAdapter: ListAdapter<ShopItem, ShopItemViewHolder>(ShopItemDiffCal
     }
 
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
-        Log.d("RecyclerViewAdapter", "onBindViewHolder")
         val shopItem = getItem(position)
-        Log.d("RecyclerViewAdapter", "$position")
 
         holder.tvName.text = shopItem.name
         holder.tvCount.text = shopItem.count.toString()
+
         holder.itemView.setOnLongClickListener {
             onShopItemLongClickListener?.invoke(shopItem)
             true
