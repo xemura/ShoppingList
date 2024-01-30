@@ -14,10 +14,18 @@ object ShopListRepositoryImpl: ShopListRepository {
     private var autoIncrementId = 0
 
     init {
-        for (i in 0 until 100) {
-            val item = ShopItem("Name: $i", i, Random.nextBoolean())
-            addShopItem(item)
-        }
+        // test data
+        addShopItem(ShopItem("salmon", 3, enabled = true))
+        addShopItem(ShopItem("cucumbers", 1, enabled = true))
+        addShopItem(ShopItem("tomatoes", 1, enabled = true))
+        addShopItem(ShopItem("onion", 5, enabled = true))
+        addShopItem(ShopItem("cookies", 2, enabled = true))
+        addShopItem(ShopItem("milk", 3, enabled = true))
+
+//        for (i in 0 until 10) {
+//            val item = ShopItem("Name: $i", i, Random.nextBoolean())
+//            addShopItem(item)
+//        }
     }
 
     override fun addShopItem(shopItem: ShopItem) {
