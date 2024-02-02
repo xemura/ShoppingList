@@ -2,8 +2,12 @@ package com.xenia.shopinglist.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.ListAdapter
 import com.xenia.shopinglist.R
+import com.xenia.shopinglist.databinding.ItemShopDisabledBinding
+import com.xenia.shopinglist.databinding.ItemShopEnabledBinding
 import com.xenia.shopinglist.domain.model.ShopItem
 
 class ShopListAdapter: ListAdapter<ShopItem, ShopItemViewHolder>(ShopItemDiffCallback()) {
@@ -17,28 +21,36 @@ class ShopListAdapter: ListAdapter<ShopItem, ShopItemViewHolder>(ShopItemDiffCal
             R.layout.item_shop_disabled
         } else R.layout.item_shop_enabled
 
-        val view = LayoutInflater.from(parent.context).inflate(
+        val binding = DataBindingUtil.inflate<ViewDataBinding>(
+            LayoutInflater.from(parent.context),
             layout,
             parent,
             false
         )
 
-        return ShopItemViewHolder(view)
+        return ShopItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
         val shopItem = getItem(position)
+        val binding = holder.binding
 
-        holder.tvName.text = shopItem.name
-        holder.tvCount.text = shopItem.count.toString()
-
-        holder.itemView.setOnLongClickListener {
+        binding.root.setOnLongClickListener {
             onShopItemLongClickListener?.invoke(shopItem)
             true
         }
 
-        holder.itemView.setOnClickListener {
+        binding.root.setOnClickListener {
             onShopItemShortClickListener?.invoke(shopItem)
+        }
+
+        when(binding) {
+            is ItemShopDisabledBinding -> {
+                binding.shopItem = shopItem
+            }
+            is ItemShopEnabledBinding -> {
+                binding.shopItem = shopItem
+            }
         }
     }
 
