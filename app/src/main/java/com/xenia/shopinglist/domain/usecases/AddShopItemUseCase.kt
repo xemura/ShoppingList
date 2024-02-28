@@ -4,7 +4,7 @@ import com.xenia.shopinglist.domain.model.ShopItem
 import com.xenia.shopinglist.domain.repository.ShopListRepository
 
 class AddShopItemUseCase(private val shopListRepository: ShopListRepository) {
-    fun addShopItem(shopItem: ShopItem) {
+    suspend fun addShopItem(shopItem: ShopItem) {
         shopListRepository.addShopItem(shopItem)
     }
 }
