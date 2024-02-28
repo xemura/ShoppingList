@@ -10,14 +10,31 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.xenia.shopinglist.databinding.FragmentShopItemBinding
+import com.xenia.shopinglist.di.DaggerApplicationComponent
 import com.xenia.shopinglist.domain.model.ShopItem
+import com.xenia.shopinglist.presentation.ShopApplication
+import com.xenia.shopinglist.presentation.viewmodels.MainViewModel
 import com.xenia.shopinglist.presentation.viewmodels.ShopItemViewModel
+import com.xenia.shopinglist.presentation.viewmodels.ViewModelFactory
+import javax.inject.Inject
 
 class ShopItemFragment : Fragment() {
 
-    private val viewModel by lazy {
-        ViewModelProvider(this)[ShopItemViewModel::class.java]
+    private val component by lazy {
+        (requireActivity().application as ShopApplication).component
     }
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[ShopItemViewModel::class.java]
+    }
+
+
+//    private val viewModel by lazy {
+//        ViewModelProvider(this)[ShopItemViewModel::class.java]
+//    }
     private lateinit var onEditingFinishListener: OnEditingFinishListener
 
     private var _binding: FragmentShopItemBinding? = null
@@ -38,6 +55,8 @@ class ShopItemFragment : Fragment() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        component.inject(this)
         super.onCreate(savedInstanceState)
         parseParams()
     }

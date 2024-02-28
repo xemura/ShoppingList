@@ -11,18 +11,36 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.xenia.shopinglist.R
 import com.xenia.shopinglist.databinding.ActivityMainBinding
+import com.xenia.shopinglist.di.DaggerApplicationComponent
+import com.xenia.shopinglist.presentation.ShopApplication
 import com.xenia.shopinglist.presentation.adapter.ShopListAdapter
 import com.xenia.shopinglist.presentation.fragments.ShopItemFragment
 import com.xenia.shopinglist.presentation.viewmodels.MainViewModel
+import com.xenia.shopinglist.presentation.viewmodels.ViewModelFactory
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishListener {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: MainViewModel
+    //private lateinit var viewModel: MainViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var rvAdapter: ShopListAdapter
 
+    private val component by lazy {
+        (application as ShopApplication).component
+    }
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        component.inject(this)
+
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -39,7 +57,7 @@ class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishListen
 
         setUpRecyclerView()
 
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        //viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.shopList.observe(this) { it ->
             rvAdapter.submitList(it)
         }

@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.xenia.shopinglist.data.ShopListRepositoryImpl
 import com.xenia.shopinglist.domain.model.ShopItem
@@ -15,29 +16,28 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import javax.inject.Inject
 
-class ShopItemViewModel(application: Application) : AndroidViewModel(application) {
+class ShopItemViewModel @Inject constructor(
+    private val getShopItemUseCase: GetShopItemUseCase,
+    private val addShopItemUseCase: AddShopItemUseCase,
+    private val editShopItemUseCase: EditShopItemUseCase,
+) : ViewModel() {
 
-    private val repository = ShopListRepositoryImpl(application)
-
-    private val getShopItemUseCase = GetShopItemUseCase(repository)
-    private val addShopItemUseCase = AddShopItemUseCase(repository)
-    private val editShopItemUseCase = EditShopItemUseCase(repository)
-
-    private val _errorInputName =  MutableLiveData<Boolean>()
-    val errorInputName : LiveData<Boolean>
+    private val _errorInputName = MutableLiveData<Boolean>()
+    val errorInputName: LiveData<Boolean>
         get() = _errorInputName
 
-    private val _errorInputCount =  MutableLiveData<Boolean>()
-    val errorInputCount : LiveData<Boolean>
+    private val _errorInputCount = MutableLiveData<Boolean>()
+    val errorInputCount: LiveData<Boolean>
         get() = _errorInputCount
 
-    private val _shopItem =  MutableLiveData<ShopItem>()
-    val shopItem : LiveData<ShopItem>
+    private val _shopItem = MutableLiveData<ShopItem>()
+    val shopItem: LiveData<ShopItem>
         get() = _shopItem
 
-    private val _closeScreen =  MutableLiveData<Unit>()
-    val closeScreen : LiveData<Unit>
+    private val _closeScreen = MutableLiveData<Unit>()
+    val closeScreen: LiveData<Unit>
         get() = _closeScreen
 
     fun getShopItem(shopItemId: Int) {
@@ -54,7 +54,7 @@ class ShopItemViewModel(application: Application) : AndroidViewModel(application
 
         if (fieldsValid) {
             viewModelScope.launch {
-                val shopItem = ShopItem (
+                val shopItem = ShopItem(
                     name = name,
                     count = count,
                     enabled = true

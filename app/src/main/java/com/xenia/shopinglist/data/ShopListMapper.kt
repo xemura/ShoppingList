@@ -1,8 +1,9 @@
 package com.xenia.shopinglist.data
 
 import com.xenia.shopinglist.domain.model.ShopItem
+import javax.inject.Inject
 
-class ShopListMapper {
+class ShopListMapper @Inject constructor() {
 
     fun mapEntityToDbModel(shopItem: ShopItem) = ShopItemDBModel(
         id = shopItem.id,
